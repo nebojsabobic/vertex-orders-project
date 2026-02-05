@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.asml.service.OrderServiceTest" time="0.622" tests="2" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="25"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/nebojsabobic/Documents/MiniOrderApi/target/test-classes:/Users/nebojsabobic/Documents/MiniOrderApi/target/classes:/Users/nebojsabobic/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.17.2/jackson-datatype-jsr310-2.17.2.jar:/Users/nebojsabobic/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.17.2/jackson-annotations-2.17.2.jar:/Users/nebojsabobic/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.17.2/jackson-core-2.17.2.jar:/Users/nebojsabobic/.m2/repository/io/vertx/vertx-core/4.5.24/vertx-core-4.5.24.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-common/4.1.130.Final/netty-common-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-buffer/4.1.130.Final/netty-buffer-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-transport/4.1.130.Final/netty-transport-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-handler/4.1.130.Final/netty-handler-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-transport-native-unix-common/4.1.130.Final/netty-transport-native-unix-common-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-codec/4.1.130.Final/netty-codec-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-handler-proxy/4.1.130.Final/netty-handler-proxy-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-codec-socks/4.1.130.Final/netty-codec-socks-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-codec-http/4.1.130.Final/netty-codec-http-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-codec-http2/4.1.130.Final/netty-codec-http2-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-resolver/4.1.130.Final/netty-resolver-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-resolver-dns/4.1.130.Final/netty-resolver-dns-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-codec-dns/4.1.130.Final/netty-codec-dns-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/vertx/vertx-web/4.5.24/vertx-web-4.5.24.jar:/Users/nebojsabobic/.m2/repository/io/vertx/vertx-web-common/4.5.24/vertx-web-common-4.5.24.jar:/Users/nebojsabobic/.m2/repository/io/vertx/vertx-auth-common/4.5.24/vertx-auth-common-4.5.24.jar:/Users/nebojsabobic/.m2/repository/io/vertx/vertx-bridge-common/4.5.24/vertx-bridge-common-4.5.24.jar:/Users/nebojsabobic/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.17.2/jackson-databind-2.17.2.jar:/Users/nebojsabobic/.m2/repository/org/slf4j/slf4j-api/2.0.9/slf4j-api-2.0.9.jar:/Users/nebojsabobic/.m2/repository/ch/qos/logback/logback-classic/1.4.14/logback-classic-1.4.14.jar:/Users/nebojsabobic/.m2/repository/ch/qos/logback/logback-core/1.4.14/logback-core-1.4.14.jar:/Users/nebojsabobic/.m2/repository/io/vertx/vertx-junit5/4.5.24/vertx-junit5-4.5.24.jar:/Users/nebojsabobic/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.8.2/junit-jupiter-api-5.8.2.jar:/Users/nebojsabobic/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/nebojsabobic/.m2/repository/org/junit/platform/junit-platform-commons/1.8.2/junit-platform-commons-1.8.2.jar:/Users/nebojsabobic/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/nebojsabobic/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.8.2/junit-jupiter-params-5.8.2.jar:/Users/nebojsabobic/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.8.2/junit-jupiter-engine-5.8.2.jar:/Users/nebojsabobic/.m2/repository/org/junit/platform/junit-platform-engine/1.8.2/junit-platform-engine-1.8.2.jar:/Users/nebojsabobic/.m2/repository/org/mockito/mockito-core/5.7.0/mockito-core-5.7.0.jar:/Users/nebojsabobic/.m2/repository/net/bytebuddy/byte-buddy/1.14.9/byte-buddy-1.14.9.jar:/Users/nebojsabobic/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.9/byte-buddy-agent-1.14.9.jar:/Users/nebojsabobic/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/Users/nebojsabobic/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.0/junit-jupiter-5.10.0.jar:/Users/nebojsabobic/.m2/repository/io/vertx/vertx-web-client/4.5.24/vertx-web-client-4.5.24.jar:/Users/nebojsabobic/.m2/repository/io/vertx/vertx-uri-template/4.5.24/vertx-uri-template-4.5.24.jar:"/>
+    <property name="java.vm.vendor" value="Homebrew"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="user.timezone" value="Europe/Belgrade"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="java.vm.specification.version" value="25"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="RS"/>
+    <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/25.0.2/libexec/openjdk.jdk/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/nebojsabobic/Documents/MiniOrderApi/target/surefire/surefirebooter-20260205121411195_3.jar /Users/nebojsabobic/Documents/MiniOrderApi/target/surefire 2026-02-05T12-14-11_149-jvmRun1 surefire-20260205121411195_1tmp surefire_0-20260205121411195_2tmp"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/Users/nebojsabobic/Documents/MiniOrderApi/target/test-classes:/Users/nebojsabobic/Documents/MiniOrderApi/target/classes:/Users/nebojsabobic/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.17.2/jackson-datatype-jsr310-2.17.2.jar:/Users/nebojsabobic/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.17.2/jackson-annotations-2.17.2.jar:/Users/nebojsabobic/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.17.2/jackson-core-2.17.2.jar:/Users/nebojsabobic/.m2/repository/io/vertx/vertx-core/4.5.24/vertx-core-4.5.24.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-common/4.1.130.Final/netty-common-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-buffer/4.1.130.Final/netty-buffer-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-transport/4.1.130.Final/netty-transport-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-handler/4.1.130.Final/netty-handler-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-transport-native-unix-common/4.1.130.Final/netty-transport-native-unix-common-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-codec/4.1.130.Final/netty-codec-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-handler-proxy/4.1.130.Final/netty-handler-proxy-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-codec-socks/4.1.130.Final/netty-codec-socks-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-codec-http/4.1.130.Final/netty-codec-http-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-codec-http2/4.1.130.Final/netty-codec-http2-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-resolver/4.1.130.Final/netty-resolver-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-resolver-dns/4.1.130.Final/netty-resolver-dns-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/netty/netty-codec-dns/4.1.130.Final/netty-codec-dns-4.1.130.Final.jar:/Users/nebojsabobic/.m2/repository/io/vertx/vertx-web/4.5.24/vertx-web-4.5.24.jar:/Users/nebojsabobic/.m2/repository/io/vertx/vertx-web-common/4.5.24/vertx-web-common-4.5.24.jar:/Users/nebojsabobic/.m2/repository/io/vertx/vertx-auth-common/4.5.24/vertx-auth-common-4.5.24.jar:/Users/nebojsabobic/.m2/repository/io/vertx/vertx-bridge-common/4.5.24/vertx-bridge-common-4.5.24.jar:/Users/nebojsabobic/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.17.2/jackson-databind-2.17.2.jar:/Users/nebojsabobic/.m2/repository/org/slf4j/slf4j-api/2.0.9/slf4j-api-2.0.9.jar:/Users/nebojsabobic/.m2/repository/ch/qos/logback/logback-classic/1.4.14/logback-classic-1.4.14.jar:/Users/nebojsabobic/.m2/repository/ch/qos/logback/logback-core/1.4.14/logback-core-1.4.14.jar:/Users/nebojsabobic/.m2/repository/io/vertx/vertx-junit5/4.5.24/vertx-junit5-4.5.24.jar:/Users/nebojsabobic/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.8.2/junit-jupiter-api-5.8.2.jar:/Users/nebojsabobic/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/nebojsabobic/.m2/repository/org/junit/platform/junit-platform-commons/1.8.2/junit-platform-commons-1.8.2.jar:/Users/nebojsabobic/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/nebojsabobic/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.8.2/junit-jupiter-params-5.8.2.jar:/Users/nebojsabobic/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.8.2/junit-jupiter-engine-5.8.2.jar:/Users/nebojsabobic/.m2/repository/org/junit/platform/junit-platform-engine/1.8.2/junit-platform-engine-1.8.2.jar:/Users/nebojsabobic/.m2/repository/org/mockito/mockito-core/5.7.0/mockito-core-5.7.0.jar:/Users/nebojsabobic/.m2/repository/net/bytebuddy/byte-buddy/1.14.9/byte-buddy-1.14.9.jar:/Users/nebojsabobic/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.9/byte-buddy-agent-1.14.9.jar:/Users/nebojsabobic/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/Users/nebojsabobic/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.0/junit-jupiter-5.10.0.jar:/Users/nebojsabobic/.m2/repository/io/vertx/vertx-web-client/4.5.24/vertx-web-client-4.5.24.jar:/Users/nebojsabobic/.m2/repository/io/vertx/vertx-uri-template/4.5.24/vertx-uri-template-4.5.24.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/nebojsabobic"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-01-20"/>
+    <property name="java.home" value="/opt/homebrew/Cellar/openjdk/25.0.2/libexec/openjdk.jdk/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/nebojsabobic/Documents/MiniOrderApi"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="apple.awt.application.name" value="ForkedBooter"/>
+    <property name="surefire.real.class.path" value="/Users/nebojsabobic/Documents/MiniOrderApi/target/surefire/surefirebooter-20260205121411195_3.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.runtime.version" value="25.0.2"/>
+    <property name="user.name" value="nebojsabobic"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="14.1"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Homebrew"/>
+    <property name="localRepository" value="/Users/nebojsabobic/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="java.io.tmpdir" value="/var/folders/dr/pfh_gj4d1sg85sdl9bfv74t40000gn/T/"/>
+    <property name="java.version" value="25.0.2"/>
+    <property name="user.dir" value="/Users/nebojsabobic/Documents/MiniOrderApi"/>
+    <property name="os.arch" value="aarch64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/nebojsabobic/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Homebrew"/>
+    <property name="java.vm.version" value="25.0.2"/>
+    <property name="stdin.encoding" value="UTF-8"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.class.version" value="69.0"/>
+  </properties>
+  <testcase name="confirmOrder_whenNotFound_returns404(Vertx, VertxTestContext)" classname="com.asml.service.OrderServiceTest" time="0.56">
+    <system-out><![CDATA[12:14:11.411 [main] DEBUG io.vertx.core.logging.LoggerFactory -- Using io.vertx.core.logging.SLF4JLogDelegateFactory
+12:14:11.455 [main] DEBUG io.netty.util.internal.logging.InternalLoggerFactory -- Using SLF4J as the default logging framework
+12:14:11.456 [main] DEBUG io.netty.util.internal.PlatformDependent0 -- Java version: 25
+12:14:11.456 [main] DEBUG io.netty.util.internal.PlatformDependent0 -- -Dio.netty.noUnsafe: false
+12:14:11.458 [main] DEBUG io.netty.util.internal.PlatformDependent0 -- sun.misc.Unsafe.theUnsafe: available
+12:14:11.460 [main] DEBUG io.netty.util.internal.PlatformDependent0 -- sun.misc.Unsafe base methods: all available
+12:14:11.460 [main] DEBUG io.netty.util.internal.PlatformDependent0 -- sun.misc.Unsafe.storeFence: available
+12:14:11.461 [main] DEBUG io.netty.util.internal.PlatformDependent0 -- java.nio.Buffer.address: available
+12:14:11.461 [main] DEBUG io.netty.util.internal.PlatformDependent0 -- direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+12:14:11.461 [main] DEBUG io.netty.util.internal.PlatformDependent0 -- java.nio.Bits.unaligned: available, true
+12:14:11.461 [main] DEBUG io.netty.util.internal.PlatformDependent0 -- jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$7 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @1dfe2924
+12:14:11.462 [main] DEBUG io.netty.util.internal.PlatformDependent0 -- java.nio.DirectByteBuffer.<init>(long, {int,long}): unavailable
+12:14:11.462 [main] DEBUG io.netty.util.internal.PlatformDependent -- sun.misc.Unsafe: available
+12:14:11.462 [main] DEBUG io.netty.util.internal.PlatformDependent -- -Dio.netty.tmpdir: /var/folders/dr/pfh_gj4d1sg85sdl9bfv74t40000gn/T (java.io.tmpdir)
+12:14:11.462 [main] DEBUG io.netty.util.internal.PlatformDependent -- -Dio.netty.bitMode: 64 (sun.arch.data.model)
+12:14:11.463 [main] DEBUG io.netty.util.internal.PlatformDependent -- Platform: MacOS
+12:14:11.463 [main] DEBUG io.netty.util.internal.PlatformDependent -- -Dio.netty.maxDirectMemory: -1 bytes
+12:14:11.463 [main] DEBUG io.netty.util.internal.PlatformDependent -- -Dio.netty.uninitializedArrayAllocationThreshold: -1
+12:14:11.464 [main] DEBUG io.netty.util.internal.CleanerJava9 -- java.nio.ByteBuffer.cleaner(): available
+12:14:11.465 [main] DEBUG io.netty.util.internal.PlatformDependent -- -Dio.netty.noPreferDirect: false
+12:14:11.470 [main] DEBUG io.netty.util.ResourceLeakDetector -- -Dio.netty.leakDetection.level: simple
+12:14:11.470 [main] DEBUG io.netty.util.ResourceLeakDetector -- -Dio.netty.leakDetection.targetRecords: 4
+12:14:11.480 [main] DEBUG io.netty.channel.MultithreadEventLoopGroup -- -Dio.netty.eventLoopThreads: 24
+12:14:11.484 [main] DEBUG io.netty.util.concurrent.GlobalEventExecutor -- -Dio.netty.globalEventExecutor.quietPeriodSeconds: 1
+12:14:11.487 [main] DEBUG io.netty.util.internal.InternalThreadLocalMap -- -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+12:14:11.487 [main] DEBUG io.netty.util.internal.InternalThreadLocalMap -- -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+12:14:11.490 [main] DEBUG io.netty.channel.nio.NioEventLoop -- -Dio.netty.noKeySetOptimization: false
+12:14:11.490 [main] DEBUG io.netty.channel.nio.NioEventLoop -- -Dio.netty.selectorAutoRebuildThreshold: 512
+12:14:11.492 [main] DEBUG io.netty.util.internal.PlatformDependent -- org.jctools-core.MpscChunkedArrayQueue: available
+12:14:11.499 [main] DEBUG io.netty.resolver.dns.DefaultDnsServerAddressStreamProvider -- Default DNS servers: [/1.1.1.1:53] (sun.net.dns.ResolverConfiguration)
+12:14:11.510 [main] DEBUG io.netty.util.NetUtil -- -Djava.net.preferIPv4Stack: false
+12:14:11.511 [main] DEBUG io.netty.util.NetUtil -- -Djava.net.preferIPv6Addresses: false
+12:14:11.513 [main] DEBUG io.netty.util.NetUtilInitializations -- Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1%lo0)
+12:14:11.513 [main] DEBUG io.netty.util.NetUtil -- Failed to get SOMAXCONN from sysctl and file /proc/sys/net/core/somaxconn. Default: 128
+12:14:11.513 [main] DEBUG io.netty.resolver.dns.DnsNameResolver -- Default ResolvedAddressTypes: IPV4_ONLY
+12:14:11.513 [main] DEBUG io.netty.resolver.dns.DnsNameResolver -- Localhost address: localhost/127.0.0.1
+12:14:11.513 [main] DEBUG io.netty.resolver.dns.DnsNameResolver -- Windows hostname: null
+12:14:11.514 [main] DEBUG io.netty.resolver.dns.DnsNameResolver -- Default search domains: []
+12:14:11.514 [main] DEBUG io.netty.resolver.dns.DnsNameResolver -- Default UnixResolverOptions{ndots=1, timeout=5, attempts=16}
+12:14:11.517 [main] DEBUG io.netty.resolver.DefaultHostsFileEntriesResolver -- -Dio.netty.hostsFileRefreshInterval: 0
+12:14:11.518 [main] WARN io.netty.resolver.dns.DnsServerAddressStreamProviders -- Can not find io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider in the classpath, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS. Check whether you have a dependency on 'io.netty:netty-resolver-dns-native-macos'
+]]></system-out>
+    <system-err><![CDATA[WARNING: A Java agent has been loaded dynamically (/Users/nebojsabobic/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.9/byte-buddy-agent-1.14.9.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+  </testcase>
+  <testcase name="createOrder_calculatesTotal_andStoresOrder(Vertx, VertxTestContext)" classname="com.asml.service.OrderServiceTest" time="0.05"/>
+</testsuite>
