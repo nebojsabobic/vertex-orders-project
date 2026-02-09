@@ -36,5 +36,7 @@ public class MainVerticle extends AbstractVerticle {
                 .listen(port)
                 .onSuccess(s -> System.out.println("Server started on 8080"))
                 .onFailure(Throwable::printStackTrace);
+
+        vertx.deployVerticle(new com.asml.email.EmailSenderVerticle());
     }
 }

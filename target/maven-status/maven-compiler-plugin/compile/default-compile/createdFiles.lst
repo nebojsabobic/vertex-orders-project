@@ -10,5 +10,6 @@ com/asml/service/PaymentService.class
 com/asml/service/PriceService.class
 com/asml/domain/Order.class
 com/asml/repo/OrderRepository.class
+com/asml/email/EmailSenderVerticle.class
 com/asml/api/OrderRoutes.class
 com/asml/service/OrderService.class

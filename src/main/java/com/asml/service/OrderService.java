@@ -51,7 +51,7 @@ public class OrderService {
                             .reduce(BigDecimal.ZERO, BigDecimal::add);
 
                     Instant now = Instant.now();
-                    return new Order(
+                    Order order = new Order(
                             UUID.randomUUID().toString(),
                             req.customerId(),
                             items,
@@ -60,6 +60,17 @@ public class OrderService {
                             now,
                             now
                     );
+
+                    if (vertx != null) {
+                        vertx.eventBus().publish("order.created",
+                                new io.vertx.core.json.JsonObject()
+                                    .put("orderId", order.id())
+                                    .put("customerId", order.customerId())
+                                    .put("total", order.total().toString())
+                        );
+                    }
+
+                    return order;
                 })
                 .compose(repo::create);
     }
