@@ -6,6 +6,7 @@
 /Users/nebojsabobic/Documents/MiniOrderApi/src/main/java/com/asml/domain/Status.java
 /Users/nebojsabobic/Documents/MiniOrderApi/src/main/java/com/asml/email/EmailSenderVerticle.java
 /Users/nebojsabobic/Documents/MiniOrderApi/src/main/java/com/asml/error/ApiException.java
+/Users/nebojsabobic/Documents/MiniOrderApi/src/main/java/com/asml/middleware/RateLimitHandler.java
 /Users/nebojsabobic/Documents/MiniOrderApi/src/main/java/com/asml/repo/InMemoryOrderRepository.java
 /Users/nebojsabobic/Documents/MiniOrderApi/src/main/java/com/asml/repo/OrderRepository.java
 /Users/nebojsabobic/Documents/MiniOrderApi/src/main/java/com/asml/service/InventoryService.java

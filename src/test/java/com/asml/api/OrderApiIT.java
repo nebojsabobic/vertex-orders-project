@@ -27,7 +27,8 @@ class OrderApiIT {
         client = WebClient.create(vertx);
 
         DeploymentOptions opts = new DeploymentOptions()
-                .setConfig(new JsonObject().put("http.port", port));
+                .setConfig(new JsonObject().put("http", new JsonObject().put("port", port))
+                        .put("api", new JsonObject().put("key", "super-secret-key")));
 
         vertx.deployVerticle(new MainVerticle(), opts)
                 .onSuccess(id -> tc.completeNow())
@@ -45,6 +46,7 @@ class OrderApiIT {
         client.post(port, "localhost", "/orders")
                 .putHeader("Content-Type", "application/json")
                 .putHeader("X-Request-Id", "it-" + UUID.randomUUID())
+                .putHeader("X-Api-Key", "super-secret-key")
                 .sendJsonObject(body)
                 .compose(res -> {
                     assertEquals(201, res.statusCode());
@@ -53,6 +55,7 @@ class OrderApiIT {
 
                     return client.get(port, "localhost", "/orders/" + orderId)
                             .putHeader("X-Request-Id", "it-" + UUID.randomUUID())
+                            .putHeader("X-Api-Key", "super-secret-key")
                             .send()
                             .map(getRes -> {
                                 assertEquals(200, getRes.statusCode());
@@ -76,10 +79,13 @@ class OrderApiIT {
 
         client.post(port, "localhost", "/orders")
                 .putHeader("Content-Type", "application/json")
+                .putHeader("X-Api-Key", "super-secret-key")
                 .sendJsonObject(body)
                 .compose(res -> {
                     assertEquals(201, res.statusCode());
-                    return client.get(port, "localhost", "/orders?customerId=c-999&limit=20").send();
+                    return client.get(port, "localhost", "/orders?customerId=c-999&limit=20")
+                            .putHeader("X-Api-Key", "super-secret-key")
+                            .send();
                 })
                 .onSuccess(listRes -> tc.verify(() -> {
                     assertEquals(200, listRes.statusCode());

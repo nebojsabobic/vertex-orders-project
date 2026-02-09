@@ -1,3 +1,4 @@
+com/asml/middleware/RateLimitHandler.class
 com/asml/service/InventoryService.class
 com/asml/api/MainVerticle.class
 com/asml/api/dto/CreateOrderRequest$Item.class

@@ -1,333 +1,550 @@
 {
-  "info": {
-    "name": "Vert.x Mini Order API (No DB)",
-    "_postman_id": "c1b5f7a1-2c2d-4b7f-9cf8-0c7d6b4b4b11",
-    "description": "Collection for Vert.x Mini Order API (health, create, get, list, confirm, process). Uses {{baseUrl}} and stores {{orderId}} after create.",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "variable": [
-    { "key": "baseUrl", "value": "http://localhost:8080" },
-    { "key": "orderId", "value": "" },
-    { "key": "customerId", "value": "c-123" }
-  ],
-  "item": [
-    {
-      "name": "Health",
-      "item": [
-        {
-          "name": "GET /health",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/health",
-              "host": ["{{baseUrl}}"],
-              "path": ["health"]
-            }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Status is 200', function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});"
-                ]
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Orders",
-      "item": [
-        {
-          "name": "POST /orders (Create) — stores orderId",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "X-Request-Id", "value": "pm-{{$guid}}" }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"customerId\": \"{{customerId}}\",\n  \"items\": [\n    { \"sku\": \"A1\", \"qty\": 2 },\n    { \"sku\": \"B7\", \"qty\": 1 }\n  ]\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/orders",
-              "host": ["{{baseUrl}}"],
-              "path": ["orders"]
-            }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Status is 201', function () {",
-                  "  pm.response.to.have.status(201);",
-                  "});",
-                  "",
-                  "let json = {};",
-                  "try { json = pm.response.json(); } catch(e) {}",
-                  "",
-                  "pm.test('Response has id/status/total', function () {",
-                  "  pm.expect(json).to.have.property('id');",
-                  "  pm.expect(json).to.have.property('status');",
-                  "  pm.expect(json).to.have.property('total');",
-                  "});",
-                  "",
-                  "if (json.id) {",
-                  "  pm.collectionVariables.set('orderId', json.id);",
-                  "}"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "name": "GET /orders/:id",
-          "request": {
-            "method": "GET",
-            "header": [
-              { "key": "X-Request-Id", "value": "pm-{{$guid}}" }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/orders/{{orderId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["orders", "{{orderId}}"]
-            }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Status is 200', function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "name": "GET /orders (List) — all",
-          "request": {
-            "method": "GET",
-            "header": [
-              { "key": "X-Request-Id", "value": "pm-{{$guid}}" }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/orders?limit=20",
-              "host": ["{{baseUrl}}"],
-              "path": ["orders"],
-              "query": [
-                { "key": "limit", "value": "20" }
-              ]
-            }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Status is 200', function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});",
-                  "pm.test('Response is JSON', function () {",
-                  "  pm.response.to.be.json;",
-                  "});"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "name": "GET /orders (List) — by customerId",
-          "request": {
-            "method": "GET",
-            "header": [
-              { "key": "X-Request-Id", "value": "pm-{{$guid}}" }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/orders?customerId={{customerId}}&limit=20",
-              "host": ["{{baseUrl}}"],
-              "path": ["orders"],
-              "query": [
-                { "key": "customerId", "value": "{{customerId}}" },
-                { "key": "limit", "value": "20" }
-              ]
-            }
-          }
-        },
-        {
-          "name": "GET /orders (List) — by status",
-          "request": {
-            "method": "GET",
-            "header": [
-              { "key": "X-Request-Id", "value": "pm-{{$guid}}" }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/orders?status=CREATED&limit=20",
-              "host": ["{{baseUrl}}"],
-              "path": ["orders"],
-              "query": [
-                { "key": "status", "value": "CREATED" },
-                { "key": "limit", "value": "20" }
-              ]
-            }
-          }
-        },
-        {
-          "name": "POST /orders/:id/confirm",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "X-Request-Id", "value": "pm-{{$guid}}" }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/orders/{{orderId}}/confirm",
-              "host": ["{{baseUrl}}"],
-              "path": ["orders", "{{orderId}}", "confirm"]
-            }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Status is 200', function () {",
-                  "  pm.response.to.have.status(200);",
-                  "});"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "name": "POST /orders/:id/process (Bonus)",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "X-Request-Id", "value": "pm-{{$guid}}" }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/orders/{{orderId}}/process",
-              "host": ["{{baseUrl}}"],
-              "path": ["orders", "{{orderId}}", "process"]
-            }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "// Depending on your random failure simulation, this might be 200 or 500.",
-                  "pm.test('Status is 200 or 500', function () {",
-                  "  pm.expect([200, 500]).to.include(pm.response.code);",
-                  "});"
-                ]
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Negative Tests (Optional)",
-      "item": [
-        {
-          "name": "POST /orders — invalid (missing customerId)",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "X-Request-Id", "value": "pm-{{$guid}}" }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"items\": [\n    { \"sku\": \"A1\", \"qty\": 1 }\n  ]\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/orders",
-              "host": ["{{baseUrl}}"],
-              "path": ["orders"]
-            }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Status is 400', function () {",
-                  "  pm.response.to.have.status(400);",
-                  "});"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "name": "POST /orders — unknown SKU",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "X-Request-Id", "value": "pm-{{$guid}}" }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"customerId\": \"{{customerId}}\",\n  \"items\": [\n    { \"sku\": \"NOPE\", \"qty\": 1 }\n  ]\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/orders",
-              "host": ["{{baseUrl}}"],
-              "path": ["orders"]
-            }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Status is 400', function () {",
-                  "  pm.response.to.have.status(400);",
-                  "});"
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "name": "GET /orders/:id — not found",
-          "request": {
-            "method": "GET",
-            "header": [
-              { "key": "X-Request-Id", "value": "pm-{{$guid}}" }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/orders/non-existing-id",
-              "host": ["{{baseUrl}}"],
-              "path": ["orders", "non-existing-id"]
-            }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Status is 404', function () {",
-                  "  pm.response.to.have.status(404);",
-                  "});"
-                ]
-              }
-            }
-          ]
-        }
-      ]
-    }
-  ]
+	"info": {
+		"_postman_id": "e4475390-9b49-4a72-867a-177bcab0cf1a",
+		"name": "Vert.x Mini Order API (No DB)",
+		"description": "Collection for Vert.x Mini Order API (health, create, get, list, confirm, process). Uses {{baseUrl}} and stores {{orderId}} after create.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2247091"
+	},
+	"item": [
+		{
+			"name": "Health",
+			"item": [
+				{
+					"name": "GET /health",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status is 200', function () {",
+									"  pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/health",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "POST /orders (Create) — stores orderId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status is 201', function () {",
+									"  pm.response.to.have.status(201);",
+									"});",
+									"",
+									"let json = {};",
+									"try { json = pm.response.json(); } catch(e) {}",
+									"",
+									"pm.test('Response has id/status/total', function () {",
+									"  pm.expect(json).to.have.property('id');",
+									"  pm.expect(json).to.have.property('status');",
+									"  pm.expect(json).to.have.property('total');",
+									"});",
+									"",
+									"if (json.id) {",
+									"  pm.collectionVariables.set('orderId', json.id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Request-Id",
+								"value": "pm-{{$guid}}"
+							},
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"customerId\": \"{{customerId}}\",\n  \"items\": [\n    { \"sku\": \"SKU1\", \"qty\": 2 },\n    { \"sku\": \"SKU2\", \"qty\": 5 }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /orders/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status is 200', function () {",
+									"  pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Request-Id",
+								"value": "pm-{{$guid}}"
+							},
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/orders/{{orderId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								"{{orderId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /orders (List) — all",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status is 200', function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"pm.test('Response is JSON', function () {",
+									"  pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Request-Id",
+								"value": "pm-{{$guid}}"
+							},
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/orders?limit=20",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /orders (List) — by customerId",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Request-Id",
+								"value": "pm-{{$guid}}"
+							},
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/orders?customerId={{customerId}}&limit=20&=super-secret-key",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							],
+							"query": [
+								{
+									"key": "customerId",
+									"value": "{{customerId}}"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "",
+									"value": "super-secret-key"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /orders (List) — by status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Request-Id",
+								"value": "pm-{{$guid}}"
+							},
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/orders?status=CREATED&limit=20&X-Api-Key={{apiKey}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "CREATED"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "X-Api-Key",
+									"value": "{{apiKey}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /orders/:id/confirm",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status is 200', function () {",
+									"  pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Request-Id",
+								"value": "pm-{{$guid}}"
+							},
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/orders/{{orderId}}/confirm",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								"{{orderId}}",
+								"confirm"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /orders/:id/process (Bonus)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Depending on your random failure simulation, this might be 200 or 500.",
+									"pm.test('Status is 200 or 500', function () {",
+									"  pm.expect([200, 500]).to.include(pm.response.code);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Request-Id",
+								"value": "pm-{{$guid}}"
+							},
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/orders/{{orderId}}/process",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								"{{orderId}}",
+								"process"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Negative Tests (Optional)",
+			"item": [
+				{
+					"name": "POST /orders — invalid (missing customerId)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status is 400', function () {",
+									"  pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Request-Id",
+								"value": "pm-{{$guid}}"
+							},
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"items\": [\n    { \"sku\": \"A1\", \"qty\": 1 }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /orders — unknown SKU",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status is 400', function () {",
+									"  pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "X-Request-Id",
+								"value": "pm-{{$guid}}"
+							},
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"customerId\": \"{{customerId}}\",\n  \"items\": [\n    { \"sku\": \"NOPE\", \"qty\": 1 }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /orders/:id — not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status is 404', function () {",
+									"  pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Request-Id",
+								"value": "pm-{{$guid}}"
+							},
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/orders/non-existing-id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								"non-existing-id"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "orderId",
+			"value": ""
+		},
+		{
+			"key": "customerId",
+			"value": "c-123"
+		},
+		{
+			"key": "apiKey",
+			"value": "super-secret-key",
+			"type": "string"
+		}
+	]
 }
