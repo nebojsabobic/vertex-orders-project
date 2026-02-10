@@ -13,6 +13,7 @@ public class EmailSenderVerticle extends AbstractVerticle {
 
     @Override
     public void start() {
+        log.info("[THREAD NAME]: {}", Thread.currentThread().getName());
 
         vertx.eventBus().consumer("order.created", msg -> {
             JsonObject payload = (JsonObject) msg.body();

@@ -4,6 +4,8 @@ import com.asml.domain.Order;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Random;
 
@@ -11,6 +13,7 @@ public class InventoryService {
     private final Vertx vertx;
     private final Random rnd = new Random();
     private final int failureRatePercent;
+    private static final Logger log = LoggerFactory.getLogger(InventoryService.class);
 
     public InventoryService(Vertx vertx) {
         this(vertx, 10);
@@ -22,6 +25,8 @@ public class InventoryService {
     }
 
     public Future<Void> reserve(Order order) {
+        log.info("[THREAD NAME]: {}", Thread.currentThread().getName());
+
         Promise<Void> p = Promise.promise();
 
         vertx.setTimer(80, t -> {
