@@ -22,6 +22,17 @@ Includes unit and integration tests.
 mvn clean compile vertx:run
 ```
 
+### Option 2 — From Docker
+
+```bash
+docker build -t mini-order-api .
+
+docker run --rm -p 8080:8080 \
+  -v "$(pwd)/src/main/resources/application.json:/app/config/application.json" \
+  mini-order-api
+
+```
+
 ## ▶️ How to Run the Tests
 
 ### Option 1 — From Terminal

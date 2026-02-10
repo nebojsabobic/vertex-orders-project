@@ -66,18 +66,17 @@ public class OrderService {
                             now
                     );
 
-                    if (vertx != null) {
-                        vertx.eventBus().publish("order.created",
-                                new io.vertx.core.json.JsonObject()
-                                    .put("orderId", order.id())
-                                    .put("customerId", order.customerId())
-                                    .put("total", order.total().toString())
-                        );
-                    }
-
                     return order;
                 })
-                .compose(repo::create);
+                .compose(repo::create)
+                .onSuccess(created -> {
+                    vertx.eventBus().publish("order.created",
+                            new io.vertx.core.json.JsonObject()
+                                    .put("orderId", created.id())
+                                    .put("customerId", created.customerId())
+                                    .put("total", created.total().toString())
+                    );
+                });
     }
 
     public Future<Order> getById(String id) {

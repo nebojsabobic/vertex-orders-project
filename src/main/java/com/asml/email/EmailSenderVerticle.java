@@ -13,13 +13,13 @@ public class EmailSenderVerticle extends AbstractVerticle {
 
     @Override
     public void start() {
-        log.info("[THREAD NAME]: {}", Thread.currentThread().getName());
-
         vertx.eventBus().consumer("order.created", msg -> {
+            log.info("[THREAD NAME]: {}", Thread.currentThread().getName());
             sendEmail("Order Created", (JsonObject) msg.body());
         });
 
         vertx.eventBus().consumer("order.processed", msg -> {
+            log.info("[THREAD NAME]: {}", Thread.currentThread().getName());
             sendEmail("Order Processed", (JsonObject) msg.body());
         });
     }

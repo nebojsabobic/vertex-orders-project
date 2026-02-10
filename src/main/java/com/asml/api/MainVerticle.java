@@ -13,7 +13,7 @@ import io.vertx.ext.web.handler.BodyHandler;
 public class MainVerticle extends AbstractVerticle {
 
     @Override
-    public void start() {
+    public void start(io.vertx.core.Promise<Void> startPromise) {
 
         int port = config()
                 .getJsonObject("http", new JsonObject())
@@ -83,8 +83,8 @@ public class MainVerticle extends AbstractVerticle {
         vertx.createHttpServer()
                 .requestHandler(root)
                 .listen(port)
-                .onSuccess(s -> System.out.println("Server started on 8080"))
-                .onFailure(Throwable::printStackTrace);
+                .onSuccess(s -> startPromise.complete())
+                .onFailure(startPromise::fail);
 
         vertx.deployVerticle(new com.asml.email.EmailSenderVerticle());
     }
