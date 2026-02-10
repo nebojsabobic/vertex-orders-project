@@ -9,6 +9,7 @@ import com.asml.repo.OrderRepository;
 import io.vertx.core.CompositeFuture;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
+import io.vertx.core.json.JsonObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -137,12 +138,14 @@ public class OrderService {
                         );
                         return repo.update(processed);
                     })
-                    .onSuccess(updated -> vertx.eventBus().publish("order.processed", updated.id()));
+                    .onSuccess(updated -> vertx.eventBus().publish("order.processed", new JsonObject()
+                            .put("orderId", updated.id())
+                            .put("customerId", updated.customerId())
+                            .put("total", updated.total().toString())));
         });
     }
 
     private static void validateCreate(CreateOrderRequest req) {
-        log.info("[THREAD NAME]: {}", Thread.currentThread().getName());
 
         if (req == null) throw new ApiException(400, "INVALID_BODY");
         if (req.customerId() == null || req.customerId().isBlank())

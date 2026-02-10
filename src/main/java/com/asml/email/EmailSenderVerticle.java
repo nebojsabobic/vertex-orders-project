@@ -16,20 +16,24 @@ public class EmailSenderVerticle extends AbstractVerticle {
         log.info("[THREAD NAME]: {}", Thread.currentThread().getName());
 
         vertx.eventBus().consumer("order.created", msg -> {
-            JsonObject payload = (JsonObject) msg.body();
+            sendEmail("Order Created", (JsonObject) msg.body());
+        });
 
-            String emailJobId = UUID.randomUUID().toString();
-            String orderId = payload.getString("orderId");
-            String customerId = payload.getString("customerId");
-            String total = payload.getString("total");
+        vertx.eventBus().consumer("order.processed", msg -> {
+            sendEmail("Order Processed", (JsonObject) msg.body());
+        });
+    }
 
-            log.info("[email:{}] Received order.created for orderId={}, customerId={}, total={}",
-                    emailJobId, orderId, customerId, total);
+    private void sendEmail(String type, JsonObject payload) {
 
-            // Simulate email sending (async delay)
-            vertx.setTimer(200, t -> {
-                log.info("[email:{}] Email sent successfully for orderId={}", emailJobId, orderId);
-            });
+        String jobId = UUID.randomUUID().toString();
+        String orderId = payload.getString("orderId");
+
+        log.info("[email:{}] {} event received for order {}", jobId, type, orderId);
+
+        // simulate async email sending
+        vertx.setTimer(300, t -> {
+            log.info("[email:{}] {} email sent successfully for order {}", jobId, type, orderId);
         });
     }
 }
